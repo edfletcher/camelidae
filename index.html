@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="index.css" />
+		<title>🦙🐪🐫</title>
+	</head>
+	<body>
+		<h1 id="header">🦙🐪🐫</h1>
+		<div>
+			<label for="prompt">Prompt:</label><br/>
+			<textarea name="prompt" id="prompt" rows="5" cols="42">Tell me about Camelidae</textarea>
+		</div>
+		<button id="submit_prompt">🦙🐪🐫</button>
+		<div id="clocks_outer">
+			You're in the queue. This can take <b>awhile</b>...<br/>
+			<div id="clocks"></div>
+		</div>
+		<div id="response_lbl">Response:</div>
+		<div id="response"></div>
+		<div id="response_metrics"></div>
+		<button id="reset">Ask another 🦙🐪🐫</button>
+		<br/>
+		<hr/>
+		<br/>
+		<div id="powered_by">
+			Powered by the 7B weights, 4-bit quantized
+			<a href="https://crfm.stanford.edu/2023/03/13/alpaca.html" target="_blank">Alpaca model</a>
+			running at a temperature of <span id="temp">0.1</span>
+			via <a href="" target="_blank">alpaca.http</a>.
+		</div>
+	</body>
+	<script src="index.js"></script>
+</html>

@@ -1,0 +1,55 @@
+@import url("https://fonts.googleapis.com/css?family=Indie+Flower:400,500,700");
+@import url("https://fonts.googleapis.com/css?family=Nanum+Myeongjo:400,500,700");
+@import url("https://fonts.googleapis.com/css?family=Fugaz+One:400,500,700");
+@import url("https://fonts.googleapis.com/css?family=Inconsolata:400,500,700");
+
+body, button {
+    font-family: "Fugaz One";
+    font-weight: 400;
+    font-size: 0.8em;
+    color: rgb(69, 30, 17);
+}
+
+textarea {
+    font-family: "Inconsolata";
+}
+
+#response {
+    margin: 2vh 4vw 2vh 1vw;
+    border-left: 3px solid darksalmon;
+    padding-left: 1vw;
+    font-family: "Nanum Myeongjo";
+    font-weight: 700;
+    font-size: 1.2em;
+    line-height: 1.8em;
+    color: black;
+}
+
+#response_metrics {
+    font-family: "Indie Flower";
+    color: black;
+}
+
+#clocks_outer {
+    display: none;
+    color: black;
+}
+
+#reset {
+    display: none;
+    margin-top: 2vh;
+    color: black;
+}
+
+#clocks {
+    font-size: 2em;
+}
+
+#powered_by {
+    font-size: 0.85em;
+}
+
+#response_lbl {
+    display: none;
+    margin-top: 2vh;
+}
