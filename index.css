@@ -23,6 +23,7 @@ textarea {
     font-size: 1.2em;
     line-height: 1.8em;
     color: black;
+    overflow-wrap: break-word;
 }
 
 #response_metrics {

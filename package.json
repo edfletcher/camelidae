@@ -1,0 +1,22 @@
+{
+  "name": "camelidae",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edfletcher/camelidae.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/edfletcher/camelidae/issues"
+  },
+  "homepage": "https://github.com/edfletcher/camelidae#readme",
+  "dependencies": {
+    "semistandard": "^17.0.0"
+  }
+}
