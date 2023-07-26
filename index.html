@@ -7,14 +7,20 @@
 		<title>🦙🐪🐫</title>
 	</head>
 	<body>
-		<h1 id="header"><a href="https://github.com/edfletcher/camelidae" target="_blank">🦙🐪🐫</a></h1>
+		<h2 id="header">🦙🐪🐫</h2>
 		<div>
 			<label for="prompt">Prompt:</label><br/>
-			<textarea name="prompt" id="prompt" rows="5" cols="42">Tell me about Camelidae</textarea>
+			<textarea name="prompt" id="prompt" rows="8" cols="57">Tell me about Camelidae</textarea>
 		</div>
+		<a href="#" id="model_link" target="_blank">Model:</a>
+		<br/>
+		<select id="model_select">
+		</select>
+		<br/>
+		<br/>
 		<button id="submit_prompt">🦙🐪🐫</button>
 		<div id="clocks_outer">
-			You're in the queue. This can take <b>awhile</b>...<br/>
+			You're #<span id="queue_pos"></span> in the queue.
 			<div id="clocks"></div>
 		</div>
 		<div id="response_lbl">Response:</div>
@@ -25,11 +31,11 @@
 		<hr/>
 		<br/>
 		<div id="powered_by">
-			Powered by the 7B parameters, 4-bit quantized
-			<a href="https://crfm.stanford.edu/2023/03/13/alpaca.html" target="_blank">Alpaca model</a>
-			running at a temperature of <span id="temp">0.1</span>
-			via <a href="https://github.com/edfletcher/alpaca.http" target="_blank">alpaca.http</a>.
+			Powered by <a href="https://github.com/edfletcher/llama.http/tree/master/examples/simple-http" target="_blank">llama.http</a> & 
+				<a href="https://github.com/edfletcher/camelidae" target="_blank">camelidae</a>.
 		</div>
 	</body>
 	<script src="index.js"></script>
+	<script data-goatcounter="https://alpaca.goatcounter.com/count"
+					async src="//gc.zgo.at/count.js"></script>
 </html>

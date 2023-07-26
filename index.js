@@ -4,12 +4,29 @@ const { origin } = locUrl;
 const endpoint = `${origin}/prompt`;
 const button = document.getElementById('submit_prompt');
 const clocksEle = document.getElementById('clocks');
-const respEle = document.getElementById('response');
 const respMetrics = document.getElementById('response_metrics');
 const promptEle = document.getElementById('prompt');
+const respEle = document.getElementById('response');
+const modelSelect = document.getElementById('model_select');
+const modelLink = document.getElementById('model_link');
+
+if (!respEle.setHTML) {
+  respEle.setHTML = (html) => (respEle.innerHTML = html);
+}
+
+function selectOptionForModelName (modelName) {
+  for (let i = 0; i < modelSelect.options.length; i++) {
+    const opt = modelSelect.options[i];
+    if (opt.id === modelName) {
+      modelSelect.selectedIndex = i;
+      modelSelect.disabled = true;
+    }
+  }
+}
 
 function renderResponse (promptId, response) {
   clocksEle.parentElement.style.display = 'none';
+  modelSelect.disabled = true;
   promptEle.value = response.prompt;
   const hadLineBreak = response.response.indexOf('\n') !== -1;
   respEle.setHTML(response.response
@@ -21,6 +38,8 @@ function renderResponse (promptId, response) {
     respEle.setHTML(respEle.innerHTML.replaceAll(' ', '&nbsp;'));
   }
 
+  selectOptionForModelName(response.model);
+
   document.getElementById('response_lbl').style.display = 'block';
   respMetrics.textContent = `Chewing through this response took the 🦙🐪🐫 ${Number(response.elapsed_ms / 1000).toFixed(0)} seconds ` +
         `(${Number(response.ms_per_token / 1000).toFixed(2)}/s per token)`;
@@ -29,11 +48,12 @@ function renderResponse (promptId, response) {
   }
 }
 
-async function promptAndWait (prompt, endpoint, promptSuccessCb, waitTickCb, promptId, waitTimeSeconds = 5) {
+async function promptAndWait (prompt, model, endpoint, promptSuccessCb, waitTickCb, promptId, waitTimeSeconds = 17) {
+  let qPos;
   if (prompt && !promptId) {
     const promptRes = await fetch(endpoint, {
       method: 'POST',
-      body: prompt
+      body: JSON.stringify({ prompt, model })
     });
 
     if (!promptRes.ok) {
@@ -46,7 +66,10 @@ async function promptAndWait (prompt, endpoint, promptSuccessCb, waitTickCb, pro
       throw new Error(`bad prompt: ${promptRes.statusText}`);
     }
 
-    promptId = (await promptRes.text()).trim();
+    const respJson = await promptRes.json();
+    promptId = respJson.promptId;
+    document.getElementById('queue_pos').innerText = (qPos = respJson.queuePosition) + 1;
+    selectOptionForModelName(respJson.model);
   }
 
   const getUrl = `${endpoint}/${promptId}`;
@@ -58,8 +81,9 @@ async function promptAndWait (prompt, endpoint, promptSuccessCb, waitTickCb, pro
     const getRes = await fetch(getUrl);
     getStatus = getRes.status;
     waitTickCb?.();
-    if (getStatus === 200) {
-      getResponse = await getRes.json();
+    getResponse = await getRes.json();
+    if (getStatus === 200 && getResponse?.queuePosition !== qPos) {
+      document.getElementById('queue_pos').innerText = (qPos = getResponse.queuePosition) + 1;
     }
     await new Promise((resolve) => setTimeout(resolve, waitTimeSeconds * 1000));
   } while (getStatus === 202);
@@ -68,12 +92,22 @@ async function promptAndWait (prompt, endpoint, promptSuccessCb, waitTickCb, pro
 }
 
 async function main () {
-  if (locUrl.host.indexOf('-ht') !== -1) {
-    const temp = document.getElementById('temp');
-    temp.textContent = '🔥0.9🔥';
-    temp.style.color = 'red';
-    document.getElementById('header').textContent = document.title = button.textContent = `🔥${document.title}🔥`;
-  }
+  const models = await (await fetch(`${origin}/models`)).json();
+
+  Object.entries(models)
+    .forEach(([modelBin, { displayName, sourceURL }]) => {
+      const newOpt = document.createElement('option');
+      newOpt.id = modelBin;
+      newOpt.innerText = displayName;
+      modelLink.href = sourceURL;
+      modelSelect.appendChild(newOpt);
+    });
+
+  modelSelect.addEventListener('change', (e) => {
+    modelLink.href = models[e.target.selectedOptions[0].id].sourceURL;
+  });
+
+  modelSelect.selectedIndex = modelSelect.options.length - 1;
 
   const curPromptId = locUrl.searchParams.get('id') ?? window.localStorage.getItem('promptId');
   let tickCount = 0;
@@ -112,8 +146,12 @@ async function main () {
         renderResponse(curPromptId, await tryIt.json(), getUrl);
         return;
       } else if (tryIt.status === 202) {
+        const { prompt, model, queuePosition} = await tryIt.json();
         clocksEle.parentElement.style.display = 'block';
-        const [promptId, response] = await promptAndWait(null, endpoint, firstTick, tick, curPromptId);
+        window.localStorage.setItem('prompt', prompt);
+        document.getElementById('queue_pos').innerText = queuePosition + 1;
+        selectOptionForModelName(model);
+        const [promptId, response] = await promptAndWait(null, modelSelect.selectedOptions[0].id, endpoint, firstTick, tick, curPromptId);
         renderResponse(promptId, response);
         return;
       }
@@ -123,8 +161,9 @@ async function main () {
   button.addEventListener('click', async () => {
     const prompt = promptEle.value;
     respMetrics.textContent = '';
+    modelSelect.disabled = true;
     window.localStorage.setItem('prompt', prompt);
-    const [promptId, response] = await promptAndWait(prompt, endpoint, firstTick, tick);
+    const [promptId, response] = await promptAndWait(prompt, modelSelect.selectedOptions[0].id, endpoint, firstTick, tick);
     renderResponse(promptId, response);
   });
 }

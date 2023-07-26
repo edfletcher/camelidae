@@ -3,11 +3,15 @@
 @import url("https://fonts.googleapis.com/css?family=Fugaz+One:400,500,700");
 @import url("https://fonts.googleapis.com/css?family=Inconsolata:400,500,700");
 
-body, button {
+body, button, select, option {
     font-family: "Fugaz One";
     font-weight: 400;
     font-size: 0.8em;
     color: rgb(69, 30, 17);
+}
+
+select, option {
+    font-size: 0.7em;
 }
 
 textarea {
