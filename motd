@@ -1,0 +1,11 @@
+This server lacks a GPU and isn't very powerful otherwise so processing may take upwards of a second or two <i>per token</i>.
+Please be patient!
+
+<br/><br/>
+
+Context length is <b>3072 tokens</b>.
+
+<br/><br/>
+
+The host reserves - and regularly excercises! - the right to wipe <i>all stored data</i> at any time.
+If you want to preserve a response, save it locally (print-to-PDF works great).

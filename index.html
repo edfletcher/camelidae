@@ -1,41 +1,66 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="index.css" />
-		<title>🦙🐪🐫</title>
-	</head>
-	<body>
-		<h2 id="header">🦙🐪🐫</h2>
-		<div>
-			<label for="prompt">Prompt:</label><br/>
-			<textarea name="prompt" id="prompt" rows="8" cols="57">Tell me about Camelidae</textarea>
-		</div>
-		<a href="#" id="model_link" target="_blank">Model:</a>
-		<br/>
-		<select id="model_select">
-		</select>
-		<br/>
-		<br/>
-		<button id="submit_prompt">🦙🐪🐫</button>
-		<div id="clocks_outer">
-			You're #<span id="queue_pos"></span> in the queue.
-			<div id="clocks"></div>
-		</div>
-		<div id="response_lbl">Response:</div>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="index.css" />
+	<title>🦙🐪🐫</title>
+</head>
+
+<body>
+	<h2 id="header">🦙🐪🐫</h2>
+	<div id="preprompt_div">
+		Pre-prompt: <input type="text" id="preprompt" size="44" />
+	</div>
+	<div>
+		<label for="prompt">Prompt:</label><br />
+		<textarea name="prompt" id="prompt" rows="8" cols="57">Tell me about Camelidae</textarea>
+	</div>
+	<div id="postprompt_div">
+		Post-prompt: <input type="text" id="postprompt" size="43" />
+	</div>
+	<div id="response_cont">
+		<div id="response_lbl"><a id="prompt_id">Response</a>:</div>
 		<div id="response"></div>
 		<div id="response_metrics"></div>
-		<button id="reset">Ask another 🦙🐪🐫</button>
-		<br/>
-		<hr/>
-		<br/>
-		<div id="powered_by">
-			Powered by <a href="https://github.com/edfletcher/llama.http/tree/master/examples/simple-http" target="_blank">llama.http</a> & 
-				<a href="https://github.com/edfletcher/camelidae" target="_blank">camelidae</a>.
+	</div>
+	<div id="model_sel_cont">
+		<a href="#" id="model_link" target="_blank">Model</a> <span id="model_used">to use</span>:
+		<br />
+		<select id="model_select">
+		</select>
+		<div id="model_desc">
 		</div>
-	</body>
+	</div>
+	<div id="options_cont">
+		<input type="checkbox" id="use_mirostat" />
+		<label for="use_mirostat">Use <a
+				href="https://github.com/ggerganov/llama.cpp/tree/master/examples/main#mirostat-sampling"
+				target="_blank">Mirostat 2</a> sampling</label>
+		<br />
+		<input type="checkbox" id="high_pri" />
+		<label for="high_pri">High priority</label>
+	</div>
+	<button id="submit_prompt">🦙🐪🐫</button>
+	<div id="clocks_outer">
+		<a href="" id="perma_ele">Your prompt</a> is <span id="queued_span">#<span id="queue_pos"></span> in the
+			queue.</span><span id="processing_span">being chewed on!</span>
+		<div id="clocks"></div>
+	</div>
+	<button id="reset">Ask another 🦙🐪🐫</button>
+	<div id="motd_cont">
+	</div>
+	<br />
+	<hr />
+	<br />
+	<div id="powered_by">
+		Powered by <a href="https://github.com/edfletcher/llama.http/tree/master/examples/simple-http"
+			target="_blank">llama.http</a> &
+		<a href="https://github.com/edfletcher/camelidae" target="_blank">camelidae</a>.
+	</div>
 	<script src="index.js"></script>
-	<script data-goatcounter="https://alpaca.goatcounter.com/count"
-					async src="//gc.zgo.at/count.js"></script>
+	<script data-goatcounter="https://alpaca.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+
 </html>

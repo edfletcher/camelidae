@@ -3,18 +3,24 @@
 @import url("https://fonts.googleapis.com/css?family=Fugaz+One:400,500,700");
 @import url("https://fonts.googleapis.com/css?family=Inconsolata:400,500,700");
 
-body, button, select, option {
+body,
+button,
+select,
+option,
+input {
     font-family: "Fugaz One";
     font-weight: 400;
     font-size: 0.8em;
     color: rgb(69, 30, 17);
 }
 
-select, option {
+select,
+option {
     font-size: 0.7em;
 }
 
-textarea {
+textarea,
+input {
     font-family: "Inconsolata";
 }
 
@@ -38,6 +44,8 @@ textarea {
 #clocks_outer {
     display: none;
     color: black;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
 }
 
 #reset {
@@ -54,7 +62,64 @@ textarea {
     font-size: 0.85em;
 }
 
-#response_lbl {
+#response_cont {
     display: none;
+}
+
+#with_id_cont {
+    display: none;
+}
+
+#motd_cont {
+    margin-top: 4vh;
+    font-family: "Nanum Myeongjo";
+    width: 33%;
+}
+
+#model_desc {
+    margin: 2vh 0 2vh 0;
+    padding: 1vh 1vw 1vh 1vw;
+    border-radius: 0.5em;
+    background-color: rgb(255, 242, 229);
+    font-family: "Inconsolata";
+    font-weight: bold;
+    display: none;
+    width: 27%;
+}
+
+#response_cont {
+    margin-bottom: 3vh;
+}
+
+#model_sel_cont {
     margin-top: 2vh;
+    margin-bottom: 2vh;
+}
+
+#with_id_cont {
+    font-family: "Inconsolata";
+    font-size: 60%;
+}
+
+#processing_span {
+    display: none;
+}
+
+#perma_ele_cont {
+    display: none;
+}
+
+#options_cont {
+    margin: 1vh 1vw 1vh 0;
+    font-family: "Inconsolata";
+}
+
+@media screen and (max-width: 640px) {
+    #model_desc {
+        width: 95%;
+    }
+
+    #motd_cont {
+        width: 95%;
+    }
 }
