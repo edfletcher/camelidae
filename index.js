@@ -42,18 +42,8 @@ function renderResponse(promptId, response) {
   document.getElementById('model_used').textContent = 'used';
   document.getElementById('prompt_id').href = `/?id=${promptId}`;
   promptEle.value = response.prompt;
-  const hadLineBreak = response.response.indexOf('\n') !== -1;
-  respEle.setHTML(response.response
-    .replaceAll('>', '&gt;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('\n', '<br/>'));
-
-  if (hadLineBreak) {
-    respEle.setHTML(respEle.innerHTML.replaceAll(' ', '&nbsp;'));
-  }
-
+  respEle.setHTML(marked.parse(response.response));
   selectOptionForModelName(response.model);
-
   document.getElementById('response_lbl').style.display = 'block';
   respMetrics.textContent = 'Chewing through this response took the 🦙🐪🐫 ' +
     `${Number(response.elapsed_ms / 1000).toFixed(0)} seconds ` +
