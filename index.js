@@ -24,7 +24,7 @@ if (!respEle.setHTML) {
 const ue = (s) => s.replaceAll(/\\n/g, '\n');
 const es = (s) => s.replaceAll(/\n/g, '\\n');
 
-function selectOptionForModelName (modelName) {
+function selectOptionForModelName(modelName) {
   for (let i = 0; i < modelSelect.options.length; i++) {
     const opt = modelSelect.options[i];
     if (opt.id === modelName) {
@@ -34,8 +34,8 @@ function selectOptionForModelName (modelName) {
   }
 }
 
-function renderResponse (promptId, response) {
-  motdEle.style.display =
+function renderResponse(promptId, response) {
+  motdEle.parentElement.style.display =
     clocksEle.parentElement.style.display = 'none';
   modelSelect.disabled = true;
   document.getElementById('response_cont').style.display = 'block';
@@ -63,7 +63,7 @@ function renderResponse (promptId, response) {
   }
 }
 
-async function promptAndWait (prompt, model, endpoint, promptSuccessCb, waitTickCb, promptId, waitTimeSeconds = 7) {
+async function promptAndWait(prompt, model, endpoint, promptSuccessCb, waitTickCb, promptId, waitTimeSeconds = 7) {
   let qPos;
   if (prompt && !promptId) {
     const promptRes = await fetch(endpoint, {
@@ -124,7 +124,7 @@ async function promptAndWait (prompt, model, endpoint, promptSuccessCb, waitTick
   return [promptId, getResponse];
 }
 
-function modelSelector (models, e) {
+function modelSelector(models, e) {
   const modelSpec = models[e.target.selectedOptions[0].id];
   modelLink.href = modelSpec.sourceURL;
   prePrompt.value = es(modelSpec.promptWrappers?.pre ?? '');
@@ -138,7 +138,7 @@ function modelSelector (models, e) {
   }
 }
 
-async function main () {
+async function main() {
   fetch('/motd')
     .then(async (motd) => {
       if (motd.ok) {
@@ -180,7 +180,7 @@ async function main () {
     resetButton.style.display = 'block';
     preDiv.style.display = 'none';
     postDiv.style.display = 'none';
-    document.getElementById('options_cont').style.display = 'none'; // should really keep mirostat shown but disabled...
+    document.getElementById('options_cont').parentElement.style.display = 'none'; // should really keep mirostat shown but disabled...
     resetButton.addEventListener('click', () => {
       window.localStorage.removeItem('promptId');
       window.localStorage.removeItem('prompt');
@@ -206,6 +206,8 @@ async function main () {
         const { prompt, model, queuePosition } = await tryIt.json();
         clocksEle.parentElement.style.display = 'block';
         window.localStorage.setItem('prompt', prompt);
+        modelSelect.selectedIndex = [...modelSelect.options].findIndex((m) => m.id === model);
+        modelSelector(models, { target: modelSelect });
         if (queuePosition === -1) {
           document.getElementById('queued_span').style.display = 'none';
           document.getElementById('processing_span').style.display = 'inline';

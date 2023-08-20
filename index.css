@@ -3,6 +3,10 @@
 @import url("https://fonts.googleapis.com/css?family=Fugaz+One:400,500,700");
 @import url("https://fonts.googleapis.com/css?family=Inconsolata:400,500,700");
 
+body {
+    background-color: rgb(255, 252, 247);
+}
+
 body,
 button,
 select,
@@ -70,10 +74,19 @@ input {
     display: none;
 }
 
-#motd_cont {
+#motd_cont_outer {
     margin-top: 4vh;
-    font-family: "Nanum Myeongjo";
     width: 33%;
+}
+
+#motd_cont {
+    font-family: "Nanum Myeongjo";
+    font-weight: bold;
+}
+
+#model_desc_outer {
+    margin-top: 2vh;
+    width: 30%;
 }
 
 #model_desc {
@@ -84,7 +97,11 @@ input {
     font-family: "Inconsolata";
     font-weight: bold;
     display: none;
-    width: 27%;
+}
+
+#options_outer {
+    margin-top: 1vh;
+    margin-bottom: 2vh;
 }
 
 #response_cont {
@@ -115,11 +132,11 @@ input {
 }
 
 @media screen and (max-width: 640px) {
-    #model_desc {
+    #model_desc_outer {
         width: 95%;
     }
 
-    #motd_cont {
+    #motd_cont_outer {
         width: 95%;
     }
 }

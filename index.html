@@ -30,18 +30,24 @@
 		<br />
 		<select id="model_select">
 		</select>
-		<div id="model_desc">
+		<details id="model_desc_outer">
+			<summary>Model description</summary>
+			<div id="model_desc">
+			</div>
+		</details>
+	</div>
+	<details id="options_outer">
+		<summary>Options</summary>
+		<div id="options_cont">
+			<input type="checkbox" id="use_mirostat" />
+			<label for="use_mirostat">Use <a
+					href="https://github.com/ggerganov/llama.cpp/tree/master/examples/main#mirostat-sampling"
+					target="_blank">Mirostat 2</a> sampling</label>
+			<br />
+			<input type="checkbox" id="high_pri" />
+			<label for="high_pri">High priority</label>
 		</div>
-	</div>
-	<div id="options_cont">
-		<input type="checkbox" id="use_mirostat" />
-		<label for="use_mirostat">Use <a
-				href="https://github.com/ggerganov/llama.cpp/tree/master/examples/main#mirostat-sampling"
-				target="_blank">Mirostat 2</a> sampling</label>
-		<br />
-		<input type="checkbox" id="high_pri" />
-		<label for="high_pri">High priority</label>
-	</div>
+	</details>
 	<button id="submit_prompt">🦙🐪🐫</button>
 	<div id="clocks_outer">
 		<a href="" id="perma_ele">Your prompt</a> is <span id="queued_span">#<span id="queue_pos"></span> in the
@@ -49,8 +55,11 @@
 		<div id="clocks"></div>
 	</div>
 	<button id="reset">Ask another 🦙🐪🐫</button>
-	<div id="motd_cont">
-	</div>
+	<details id="motd_cont_outer">
+		<summary>Server Note</summary>
+		<span id="motd_cont">
+		</span>
+	</details>
 	<br />
 	<hr />
 	<br />
